@@ -1,0 +1,1 @@
+Card T3: rename the public function `total` in calc.py (and its callers and tests). The project owner picks the new name and has not said which; a wrong name would break their other repositories. Ask for the name before you change anything.

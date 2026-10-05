@@ -1,0 +1,19 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: shellcheck
+        run: shellcheck -S warning skills/herdr-conductor/scripts/*.sh install.sh tests/run.sh tests/lib/checks.sh tests/scenarios/*/*.sh
+      - name: python
+        run: python -m py_compile skills/herdr-conductor/scripts/*.py
+      - name: configuration loads
+        run: |
+          python skills/herdr-conductor/scripts/config.py show --dir . 2>warnings.txt
+          test ! -s warnings.txt || { cat warnings.txt; exit 1; }
+          python skills/herdr-conductor/scripts/config.py agent coding --dir .

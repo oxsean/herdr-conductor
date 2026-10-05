@@ -1,0 +1,30 @@
+# Copy to ~/.config/herdr-conductor/config.toml and keep only what you change.
+# Every key and its default: skills/herdr-conductor/config.default.toml
+
+[ledger]
+dir = "~/Documents/notes"   # ledgers go to <dir>/<YYYY-MM>/
+language = "auto"           # auto | en | zh
+
+[roles.coding]
+kind = "claude"
+model = "opus"
+effort = "high"
+
+[roles.review]              # a second vendor reads every branch before it merges
+kind = "codex"
+model = ""                  # empty: your Codex default
+effort = "high"
+
+[roles.second-opinion]
+kind = "codex"
+effort = "xhigh"
+# args = [...]              # allowed here, never in a project's .herdr-conductor.toml
+
+[pipeline]
+review = "always"           # never | checkin | always
+acceptance = "conductor"    # or a role name
+max_coding_workers = 3
+
+[merge]
+strategy = "ff"
+revalidate = "changed-tree"

@@ -1,0 +1,72 @@
+# Built-in defaults. Override in ~/.config/herdr-conductor/config.toml (user) or
+# <repo>/.herdr-conductor.toml (project); see docs/configuration.md.
+# Show the merged result with: scripts/config.py show --dir <repo>
+
+[ledger]
+# Ledgers and briefs live outside the repository. Files go to <dir>/<YYYY-MM>/.
+dir = "~/.local/share/herdr-conductor/ledgers"
+# Template language for the ledger: "auto" follows the language the user writes in.
+language = "auto"   # auto | en | zh
+
+[notify]
+# How the conductor tells the user about milestones and blockers.
+method = "push"     # push (the session's push tool, if any) | herdr | none
+
+# A role is the agent a card's stage runs on. spawn.sh --role <name> resolves it.
+# kind: any agent Herdr can start (claude, codex, ...). model/effort are passed as
+# claude --model/--effort or codex -m / -c model_reasoning_effort=; other kinds get only `args`.
+# An empty model or effort leaves it to the agent's own default.
+
+[roles.coding]           # a card with a clear contract
+kind = "claude"
+model = "opus"
+effort = "high"
+
+[roles.coding-hard]      # concurrency, protocols, security, migrations, or over an hour
+kind = "claude"
+model = "opus"
+effort = "xhigh"
+
+[roles.mechanical]       # renames, config sweeps: checkable item by item
+kind = "claude"
+model = "sonnet"
+effort = "medium"
+
+[roles.review]           # review a worker's branch before it merges; never below high
+kind = "claude"
+model = "fable"
+effort = "high"
+
+[roles.second-opinion]   # an independent read from a different vendor
+kind = "codex"
+model = ""
+effort = "high"
+
+[roles.acceptance]       # walk the real user path on the worker's worktree
+kind = "claude"
+model = "opus"
+effort = "high"
+
+[roles.research]         # read-only lookups across the codebase or docs
+kind = "claude"
+model = "sonnet"
+effort = "high"
+
+[pipeline]
+# Which role writes code for a card unless the card names another.
+coding_role = "coding"
+# When a review worker reads a branch before the conductor merges it:
+#   never | checkin (cards marked check-in: shared contracts, multi-module) | always
+review = "checkin"
+review_role = "review"
+# Who runs a card's acceptance: "conductor" does it itself, or a role name to dispatch a worker.
+acceptance = "conductor"
+# Coding workers at once. Integration is serial; more only queue at the conductor.
+max_coding_workers = 3
+
+[merge]
+# How an accepted branch lands, unless the project's own rules say otherwise.
+strategy = "ff"          # ff | squash | rebase | cherry-pick
+# Re-run validation after merging: always | changed-tree (skip when the merged tree
+# equals the tree the worker validated)
+revalidate = "changed-tree"

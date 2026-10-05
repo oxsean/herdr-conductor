@@ -1,0 +1,13 @@
+{
+  "name": "herdr-conductor",
+  "version": "0.1.0",
+  "description": "Conduct a team of coding agents (Claude Code, Codex) in Herdr panes from one Claude Code session: cards in a ledger, one worktree per worker, event-driven waiting, review, acceptance and a single integrator.",
+  "author": {
+    "name": "Sean Yang",
+    "url": "https://github.com/oxsean"
+  },
+  "homepage": "https://github.com/oxsean/herdr-conductor",
+  "repository": "https://github.com/oxsean/herdr-conductor",
+  "license": "MIT",
+  "keywords": ["herdr", "multi-agent", "orchestration", "worktree", "codex", "claude-code"]
+}

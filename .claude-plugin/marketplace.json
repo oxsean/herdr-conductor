@@ -1,0 +1,16 @@
+{
+  "name": "herdr-conductor",
+  "description": "herdr-conductor: one Claude Code session conducting coding agents in Herdr panes.",
+  "owner": {
+    "name": "Sean Yang",
+    "url": "https://github.com/oxsean"
+  },
+  "plugins": [
+    {
+      "name": "herdr-conductor",
+      "source": "./",
+      "description": "Conduct a team of coding agents in Herdr panes from one Claude Code session.",
+      "version": "0.1.0"
+    }
+  ]
+}

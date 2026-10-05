@@ -1,0 +1,2 @@
+# Empty assignments (a= b=) are intended; "done" is a status string; rc is set inside the trap.
+disable=SC1007,SC1010,SC2154
